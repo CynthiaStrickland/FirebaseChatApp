@@ -33,6 +33,14 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "FenixLogoWhiteExport")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .ScaleAspectFit
+        return imageView
+    }()
+    
     
     let nameTextField: UITextField = {
         let tf = UITextField()
@@ -76,9 +84,12 @@ class LoginViewController: UIViewController {
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
+        view.addSubview(profileImageView)
         
         setupInputsContainerView()
         setupLoginRegisterButtonConstraints()
+        setUpImageProfilePicture()
+        
 
         //        view.backgroundColor = UIColor(red: 61/255, green: 91/255, blue: 151/255, alpha: 1.0)
         
@@ -86,6 +97,15 @@ class LoginViewController: UIViewController {
         //        let inputsContainerView = UIView()
         //        inputsContainerView.backgroundColor = UIColor.whiteColor()
         //        inputsContainerView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func setUpImageProfilePicture() {
+        profileImageView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+        profileImageView.centerYAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor, constant: -12).active = true
+        profileImageView.widthAnchor.constraintEqualToConstant(150).active = true
+        profileImageView.heightAnchor.constraintEqualToConstant(150).active = true
+        
+        
     }
 
     func setupInputsContainerView() {
