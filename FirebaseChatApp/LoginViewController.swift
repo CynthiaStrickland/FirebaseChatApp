@@ -10,26 +10,139 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    let inputsContainerView: UIView = {
+        let view = UIView()
+        
+        view.backgroundColor = UIColor.whiteColor()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 5
+        view.layer.masksToBounds = true
+        
+        return view
+        
+    }()
+    
+    let loginRegisterButton: UIButton = {
+        let button = UIButton(type: .System)
+        button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
+        button.setTitle("Register", forState: .Normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        button.titleLabel?.font = UIFont.boldSystemFontOfSize(16)
+        
+        return button
+    }()
+    
+    
+    let nameTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Name"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
+    }()
+    
+    let nameSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 155, g: 155, b: 155)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let passwordTextField: UITextField = {
+        let pf = UITextField()
+        pf.placeholder = "Password"
+        pf.translatesAutoresizingMaskIntoConstraints = false
+        pf.secureTextEntry = true
+        return pf
+    }()
+
+    let emailTextField: UITextField = {
+        let ef = UITextField()
+        ef.placeholder = "Email"
+        ef.translatesAutoresizingMaskIntoConstraints = false
+        return ef
+    }()
+    
+    let emailSeparatorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 155, g: 155, b: 155)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
+        view.addSubview(inputsContainerView)
+        view.addSubview(loginRegisterButton)
+        
+        setupInputsContainerView()
+        setupLoginRegisterButtonConstraints()
+
+        //        view.backgroundColor = UIColor(red: 61/255, green: 91/255, blue: 151/255, alpha: 1.0)
+        
+        //        MOVED THIS CODE OUTSIDE OF VIEW DID LOAD AND CREATED A BLOCK
+        //        let inputsContainerView = UIView()
+        //        inputsContainerView.backgroundColor = UIColor.whiteColor()
+        //        inputsContainerView.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func setupInputsContainerView() {
+        inputsContainerView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+        inputsContainerView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
+        inputsContainerView.widthAnchor.constraintEqualToAnchor(view.widthAnchor, constant: -24).active = true
+        inputsContainerView.heightAnchor.constraintEqualToConstant(150).active = true
+        
+        inputsContainerView.addSubview(nameTextField)
+        inputsContainerView.addSubview(nameSeparatorView)
+        inputsContainerView.addSubview(emailTextField)
+        inputsContainerView.addSubview(emailSeparatorView)
+        inputsContainerView.addSubview(passwordTextField)
+        
+        nameTextField.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor, constant: 12).active = true
+        nameTextField.topAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor).active = true
+        nameTextField.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        nameTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: 1/3).active = true
+        
+        nameSeparatorView.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor).active = true
+        nameSeparatorView.topAnchor.constraintEqualToAnchor(nameTextField.bottomAnchor).active = true
+        nameSeparatorView.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        nameSeparatorView.heightAnchor.constraintEqualToConstant(1).active = true
+        
+        emailTextField.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor, constant: 12).active = true
+        emailTextField.topAnchor.constraintEqualToAnchor(nameTextField.bottomAnchor).active = true
+        emailTextField.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        emailTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: 1/3).active = true
+        
+        emailSeparatorView.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor).active = true
+        emailSeparatorView.topAnchor.constraintEqualToAnchor(emailTextField.bottomAnchor).active = true
+        emailSeparatorView.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        emailSeparatorView.heightAnchor.constraintEqualToConstant(1).active = true
+        
+        passwordTextField.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor, constant: 12).active = true
+        passwordTextField.topAnchor.constraintEqualToAnchor(emailTextField.bottomAnchor).active = true
+        passwordTextField.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        passwordTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: 1/3).active = true
+}
+    
+    
+    func setupLoginRegisterButtonConstraints() {
+        
+        loginRegisterButton.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
+        loginRegisterButton.topAnchor.constraintEqualToAnchor(inputsContainerView.bottomAnchor, constant: 12).active = true
+        loginRegisterButton.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
+        loginRegisterButton.heightAnchor.constraintEqualToConstant(50).active = true
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
-    */
+}
 
+extension UIColor {
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
+        self.init(red : r/255,  green: g/255, blue: b/255, alpha: 1.0)
+    }
 }
