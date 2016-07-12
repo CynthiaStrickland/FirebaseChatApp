@@ -101,9 +101,9 @@ class LoginViewController: UIViewController {
     
     func setUpImageProfilePicture() {
         profileImageView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        profileImageView.centerYAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor, constant: -12).active = true
-        profileImageView.widthAnchor.constraintEqualToConstant(150).active = true
-        profileImageView.heightAnchor.constraintEqualToConstant(150).active = true
+        profileImageView.centerYAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor, constant: -80).active = true
+        profileImageView.widthAnchor.constraintEqualToConstant(200).active = true
+        profileImageView.heightAnchor.constraintEqualToConstant(2000).active = true
         
         
     }
