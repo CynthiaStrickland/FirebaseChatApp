@@ -29,6 +29,7 @@
 		2E1231CB6A77FE94297EEB192F9C5396 /* Firebase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = Headers/Firebase.h; sourceTree = "<group>"; };
 		35025DD301554303A119274FBF8EE15C /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
 		3BEE539130303984C4023419F8084B4E /* Pods-FirebaseChatAppUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FirebaseChatAppUITests-frameworks.sh"; sourceTree = "<group>"; };
+		3DF8C10D1D35C17D0029E02C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A87FA306AC45D9C71696051D75C95B1 /* Pods-FirebaseChatAppUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FirebaseChatAppUITests-acknowledgements.plist"; sourceTree = "<group>"; };
 		5D4CA76233D83397A5F8D62FA9B1C530 /* FirebaseAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAuth.framework; path = Frameworks/FirebaseAuth.framework; sourceTree = "<group>"; };
 		604DB16216762167EDEDDD0156561ABF /* Pods-FirebaseChatAppUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FirebaseChatAppUITests-resources.sh"; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 		5DCB57296C16B9A96988EF8AF455704A /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				3DF8C10E1D35C17D0029E02C /* LaunchScreen.storyboard */,
 				09EC8FCE1ED0540D2EA3BBC211881AA1 /* Pods-FirebaseChatApp */,
 				970D61E8731239D168F6FF4E93C296C6 /* Pods-FirebaseChatAppTests */,
 				506B3F7AB784562111FBAC5C4A2BAFBB /* Pods-FirebaseChatAppUITests */,
@@ -509,6 +511,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3DF8C10E1D35C17D0029E02C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3DF8C10D1D35C17D0029E02C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			path = ../FirebaseChatApp;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3305875D4458E2C5F53EB5CE4F8D0E7D /* Debug */ = {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController {
 
@@ -22,7 +23,7 @@ class LoginViewController: UIViewController {
         
     }()
     
-    let loginRegisterButton: UIButton = {
+    lazy var loginRegisterButton: UIButton = {
         let button = UIButton(type: .System)
         button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
         button.setTitle("Register", forState: .Normal)
@@ -30,8 +31,46 @@ class LoginViewController: UIViewController {
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.titleLabel?.font = UIFont.boldSystemFontOfSize(16)
         
+        button.addTarget(self, action: #selector(handleRegister), forControlEvents: .TouchUpInside)
+                //changed from let to lazy var to give access to self
         return button
     }()
+    
+    func handleRegister() {
+        
+        guard let email = emailTextField.text, password = passwordTextField.text, name = nameTextField.text else {
+            print("Email and Password Needed")
+            return
+        }
+        
+        FIRAuth.auth()?.createUserWithEmail(email, password: password,  completion: { (user: FIRUser?, error) in
+            
+            if error != nil {
+                print("error")
+                return
+            }
+            
+            print("Successfully authenticated user")
+            //persist to DATA - creating dictionary and updated values to database
+            
+            guard let uid = user?.uid else {
+                return
+            }
+            let ref = FIRDatabase.database().referenceFromURL("https://fir-chatapp-44789.firebaseio.com")
+            let usersReference = ref.child("users").child(uid)
+            let values = ["name" : name, "email" : email, "password": password]
+            usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+                if err != nil {
+                    print("You have an ERROR")
+                    
+                }
+                
+                    print("SUCCESS, you have added a user, email and password to database")
+            })
+
+        })
+        print(123)
+    }
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -81,6 +120,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
