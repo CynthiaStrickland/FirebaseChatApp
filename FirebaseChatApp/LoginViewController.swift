@@ -165,9 +165,9 @@ class LoginViewController: UIViewController {
     
     func setUpProfileImageView() {
         profileImageView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
-        profileImageView.centerYAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor, constant: -80).active = true
-        profileImageView.widthAnchor.constraintEqualToConstant(200).active = true
-        profileImageView.heightAnchor.constraintEqualToConstant(2000).active = true
+        profileImageView.bottomAnchor.constraintEqualToAnchor(loginRegisterSegmentedControl.topAnchor, constant: -12).active = true
+        profileImageView.widthAnchor.constraintEqualToConstant(150).active = true
+        profileImageView.heightAnchor.constraintEqualToConstant(150).active = true
     }
 
     func setupLoginRegisterButton() {
@@ -192,7 +192,6 @@ class LoginViewController: UIViewController {
         
         nameTextField.leftAnchor.constraintEqualToAnchor(inputsContainerView.leftAnchor, constant: 12).active = true
         nameTextField.topAnchor.constraintEqualToAnchor(inputsContainerView.topAnchor).active = true
-        
         nameTextField.widthAnchor.constraintEqualToAnchor(inputsContainerView.widthAnchor).active = true
         nameTextFieldHeightAnchor = nameTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: 1/3)
         nameTextFieldHeightAnchor?.active = true
