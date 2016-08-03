@@ -11,6 +11,22 @@ import Firebase
 
 extension LoginViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    func handleLogin() {
+        guard let email = emailTextField.text, password = passwordTextField.text else {
+            print("Form is not valid")
+            return
+        }
+        
+        FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (user, error) in
+            
+            if error != nil {
+                print(error)
+                return
+            }
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+    }
+    
     func handleRegister() {
         guard let email = emailTextField.text, password = passwordTextField.text, name = nameTextField.text else {
             print("Form is not valid")
@@ -28,12 +44,10 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
                 return
             }
             
-            //successfully authenticated user
             let imageName = NSUUID().UUIDString
             let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).png")
             
             if let uploadData = UIImagePNGRepresentation(self.profileImageView.image!) {
-            
                 storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                     
                     if error != nil {
@@ -42,9 +56,7 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
                     }
                     
                     if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                        
                         let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl]
-                        
                         self.registerUserIntoDatabaseWithUID(uid, values: values)
                     }
                 })
@@ -55,7 +67,6 @@ extension LoginViewController: UIImagePickerControllerDelegate, UINavigationCont
     private func registerUserIntoDatabaseWithUID(uid: String, values: [String: AnyObject]) {
         let ref = FIRDatabase.database().referenceFromURL("https://fir-chatapp-44789.firebaseio.com/")
         let usersReference = ref.child("users").child(uid)
-        
         usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
             
             if err != nil {

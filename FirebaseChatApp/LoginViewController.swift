@@ -33,8 +33,7 @@ class LoginViewController: UIViewController {
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.titleLabel?.font = UIFont.boldSystemFontOfSize(16)
         
-        button.addTarget(self, action: #selector(handleRegister), forControlEvents: .TouchUpInside)
-                //changed from let to lazy var to give access to self
+        button.addTarget(self, action: #selector(handleLoginRegister), forControlEvents: .TouchUpInside)
         return button
     }()
     
@@ -44,22 +43,6 @@ class LoginViewController: UIViewController {
         } else {
             handleRegister()
         }
-    }
-    
-    func handleLogin() {
-        guard let email = emailTextField.text, password = passwordTextField.text else {
-            print("Form is not valid")
-            return
-        }
-        
-        FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (user, error) in
-            
-            if error != nil {
-                print(error)
-                return
-            }
-            self.dismissViewControllerAnimated(true, completion: nil)
-        })
     }
     
     let nameTextField: UITextField = {
@@ -120,13 +103,12 @@ class LoginViewController: UIViewController {
     }()
     
     func handleLoginRegisterChange() {
+                //LOGIN TOGGLE BUILT PROGRAMATICALLY
+        
         let title = loginRegisterSegmentedControl.titleForSegmentAtIndex(loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, forState: .Normal)
-        
-            // ******* Change height of inputContainerView ****
         inputsContainerViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 100 : 150
         
-            // ******* Change height of nameTextField ****
         nameTextFieldHeightAnchor?.active = false
         nameTextFieldHeightAnchor = nameTextField.heightAnchor.constraintEqualToAnchor(inputsContainerView.heightAnchor, multiplier: loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 0 : 1/3)
         nameTextFieldHeightAnchor?.active = true
@@ -155,6 +137,7 @@ class LoginViewController: UIViewController {
         setupLoginRegisterSegmentedControl()
 
     }
+    
     
     func setupLoginRegisterSegmentedControl() {
         loginRegisterSegmentedControl.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor).active = true
