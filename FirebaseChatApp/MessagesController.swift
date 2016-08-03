@@ -35,8 +35,8 @@ class MessagesController: UITableViewController {
             let uid = FIRAuth.auth()?.currentUser?.uid
             FIRDatabase.database().reference().child("users").child(uid!).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
                 
-                if let dictionary = snapshot.value as? [String: AnyObject] {
-                    self.navigationItem.title = dictionary["name"] as? String
+                if let dictionary = snapshot.value as? [String: AnyObject] {        //THIS ALLOWS U TO GET VALUE OUT OF DICTIONARY
+                    self.navigationItem.title = dictionary["name"] as? String       //NOW YOU CAN GRAB VALUE, IN THIS CASE "name" and PUT IT IN NAVIGATION BAR TITLE
                 }
                 
                 }, withCancelBlock: nil)
