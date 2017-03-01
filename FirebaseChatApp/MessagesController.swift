@@ -14,9 +14,9 @@ class MessagesController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(handleLogout))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         let image = UIImage(named: "new_message_icon")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .Plain, target: self, action: #selector(handleNewMessage))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(handleNewMessage))
         
         checkIfUserIsLoggedIn()
     }
@@ -24,21 +24,21 @@ class MessagesController: UITableViewController {
     func handleNewMessage() {
         let newMessageController = NewMessageController()
         let navController = UINavigationController(rootViewController: newMessageController)
-        presentViewController(navController, animated: true, completion: nil)
+        present(navController, animated: true, completion: nil)
     }
     
     func checkIfUserIsLoggedIn() {
         if FIRAuth.auth()?.currentUser?.uid == nil {
-            performSelector(#selector(handleLogout), withObject: nil, afterDelay: 0)
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
             let uid = FIRAuth.auth()?.currentUser?.uid
-            FIRDatabase.database().reference().child("users").child(uid!).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            FIRDatabase.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String: AnyObject] {        //THIS ALLOWS U TO GET VALUE OUT OF DICTIONARY
                     self.navigationItem.title = dictionary["name"] as? String       //NOW YOU CAN GRAB VALUE, IN THIS CASE "name" and PUT IT IN NAVIGATION BAR TITLE
                 }
                 
-                }, withCancelBlock: nil)
+                }, withCancel: nil)
         }
     }
     
@@ -51,7 +51,7 @@ class MessagesController: UITableViewController {
         }
         
         let loginController = LoginViewController()
-        presentViewController(loginController, animated: true, completion: nil)
+        present(loginController, animated: true, completion: nil)
     }
 
 }

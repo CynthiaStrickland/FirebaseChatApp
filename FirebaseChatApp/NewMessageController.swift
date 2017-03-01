@@ -18,24 +18,24 @@ class NewMessageController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(handleCancel))
-        tableView.registerClass(UserCell.self, forCellReuseIdentifier: cellId)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
         
         fetchUser()
     }
     
     func fetchUser() {
-        FIRDatabase.database().reference().child("users").observeEventType(.ChildAdded, withBlock: { (snapshot) in
+        FIRDatabase.database().reference().child("users").observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
             let user = User()
                 
                     //if you use this setter, your app will crash if your class properties don't exactly match up with the firebase dictionary keys
-            user.setValuesForKeysWithDictionary(dictionary)
+            user.setValuesForKeys(dictionary)
             self.users.append(user)
             
                 //this will crash because of background thread, so lets use dispatch_async to fix
-            dispatch_async(dispatch_get_main_queue(), { 
+            DispatchQueue.main.async(execute: { 
                 self.tableView.reloadData()
             })
             
@@ -43,24 +43,24 @@ class NewMessageController: UITableViewController {
 //                user.name = dictionary["name"]
         }
             
-            }, withCancelBlock: nil)
+            }, withCancel: nil)
     }
     
     func handleCancel() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //      return 5
         return users.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
 //        let use a hack for now, we actually need to dequeue our cells for memory efficiency
 //        let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         let user = users[indexPath.row]
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
@@ -73,7 +73,7 @@ class NewMessageController: UITableViewController {
 class UserCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .Subtitle, reuseIdentifier: reuseIdentifier)
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
